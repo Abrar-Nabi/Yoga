@@ -1,0 +1,150 @@
+/* Main container */
+.teachers-container {
+
+  padding: 50px 20px;
+
+}
+
+/* Heading */
+.teachers-heading {
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Teachers Grid */
+.teachers-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Ensures wrapping on small screens */
+}
+
+/* Individual Teacher Card */
+.teacher-card {
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 180px; /* Fixed width */
+}
+
+/* Teacher Image */
+.teacher-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Teacher Name and Expertise */
+.teacher-name {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.teacher-expertise {
+  font-size: 14px;
+  color: #777; /* Lighter color for expertise */
+  margin-top: 5px; /* Reduce space between name and expertise */
+}
+
+/* Description */
+.teachers-description {
+  font-size: 25px;
+  line-height: 38px;
+  margin: 0 auto 20px auto;
+}
+
+/* Button */
+.teachers-button {
+  background-color: #000000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.teachers-button:hover {
+  background: #525252;
+}
+
+/* 📱 Tablet Screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .teachers-heading {
+      font-size: 36px;
+  }
+
+  .teachers-description {
+      font-size: 22px;
+      line-height: 32px;
+  }
+
+  .teachers-grid {
+      gap: 15px;
+  }
+
+  .teacher-card {
+      width: 160px;
+  }
+
+  .teacher-image {
+      width: 130px;
+      height: 130px;
+  }
+
+  .teacher-name {
+      font-size: 16px;
+  }
+
+  .teacher-expertise {
+      font-size: 13px;
+      margin-top: 3px; /* Less space between name and expertise */
+  }
+}
+
+/* 📱 Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .teachers-container {
+      padding: 40px 10px;
+  }
+
+  .teachers-heading {
+    font-size: 30px;
+    text-align: left;
+  }
+
+  .teachers-description {
+    font-size: 20px;
+    line-height: 28px;
+    text-align: left;
+  }
+
+  .teachers-grid {
+      gap: 10px;
+  }
+
+  .teacher-card {
+      width: 140px;
+  }
+
+  .teacher-image {
+      width: 110px;
+      height: 110px;
+  }
+
+  .teacher-name {
+      font-size: 14px;
+  }
+
+  .teacher-expertise {
+      font-size: 12px;
+      margin-top: 2px; /* More reduced space between name and expertise */
+  }
+
+  .teachers-button {
+      font-size: 14px;
+      padding: 8px 16px;
+  }
+}

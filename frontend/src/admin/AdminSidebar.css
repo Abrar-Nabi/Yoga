@@ -1,0 +1,125 @@
+
+/* Sidebar Styles */
+.admin-sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  color: black;
+  padding: 20px;
+  position: fixed;  /* Sidebar is fixed to the left */
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Sidebar hidden state for mobile */
+
+
+
+.admin-sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-sidebar ul li {
+  padding: 12px 0;
+  text-align: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.admin-sidebar ul li:hover {
+  background-color: #f0f0f0;
+}
+
+.admin-sidebar ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+}
+
+.admin-sidebar ul li a:hover {
+  color: #0066ff;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.logout-btn:hover {
+  background-color: #0051cc;
+}
+
+/* Hamburger and Close Icon */
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2000;
+}
+
+.hamburger-menu svg {
+  color: black;
+  transition: color 0.3s ease;
+}
+
+/* Mobile Screens (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Sidebar hidden by default */
+  .admin-sidebar.closed {
+    transform: translateX(-290px);
+  }
+  .admin-sidebar {
+    left: 0;
+    transform: translateX(-250px);
+  }
+
+  .home-admin-content {
+    margin-left: 0; /* Ensure content starts from the left */
+  }
+
+  /* Hamburger menu visible on mobile */
+  .hamburger-menu {
+    display: block;
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0); /* Sidebar slides in */
+  }
+
+  .admin-sidebar ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .admin-sidebar ul li {
+    width: 100%;
+    text-align: left;
+  }
+
+  .logout-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,122 @@
+/* Centering container */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+/* Box styling */
+.auth-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 350px; /* Responsive max width */
+}
+
+/* Input fields */
+.auth-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease-in-out;
+}
+
+/* Focus effect on inputs */
+.auth-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button styling */
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.auth-btn:hover {
+    background: #0056b3;
+}
+
+/* Loading screen */
+.loading-screen {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Success message */
+.success-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+/* Links */
+.auth-link {
+    color: #003fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 📱 Mobile (up to 480px) */
+@media (max-width: 480px) {
+    .auth-box {
+        padding: 20px;
+        max-width: 90%;
+    }
+    
+    .auth-input, .auth-btn {
+        padding: 10px 5px;
+        font-size: 14px;
+    }
+    
+    .auth-link {
+        font-size: 14px;
+    }
+}
+
+/* 📱 Small tablets (up to 768px) */
+@media (max-width: 768px) {
+    .auth-box {
+        max-width: 400px;
+    }
+}

@@ -1,0 +1,23 @@
+.all-yoga-container {
+    padding: 20px;
+    text-align: center;
+    margin-top: 90px;
+}
+  
+  .all-yoga-heading {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .all-yoga-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+
+  
+
+  
+
+  

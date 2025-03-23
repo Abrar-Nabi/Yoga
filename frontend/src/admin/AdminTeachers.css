@@ -1,0 +1,24 @@
+.admin-teachers {
+    margin-left: 135px;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+
+
+
+  @media (max-width: 768px) {
+
+    .admin-teachers {
+      margin-left: 0px;
+     
+    
+    }
+    .admin-teachers h2 {
+      /* color: red; */
+      font-size: 20px;
+  }
+  }
+
+  
+  

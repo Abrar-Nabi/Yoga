@@ -1,0 +1,45 @@
+/* Admin Bookings */
+.admin-bookings {
+  padding: 20px;
+}
+
+.admin-bookings-container {
+  padding: 20px;
+  min-height: 100vh;
+  margin-left: 135px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-bookings-container {
+    padding: 15px;
+    margin-left: 0px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-booking-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .modal-content {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .update-btn, .cancel-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+}

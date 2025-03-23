@@ -1,0 +1,91 @@
+.booking-container {
+  max-width: 500px;
+  margin: 120px auto 50px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: "Poppins", sans-serif;
+}
+  
+  .booking-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .booking-form label {
+    font-weight: 600;
+    color: #444;
+    font-size: 15px;
+  }
+  
+  .booking-form input,
+  .booking-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    background: #f9f9f9;
+  }
+  
+  .booking-form input:focus,
+  .booking-form select:focus {
+    border-color: #4CAF50;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
+  }
+  
+  .booking-form button {
+    background: #4CAF50;
+    color: white;
+    padding: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .booking-form button:hover {
+    background: #388e3c;
+  }
+  
+  .message {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    color: #fff;
+    background: #4CAF50;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .booking-container {
+      width: 80%;
+      padding: 20px;
+      margin-top: 130px
+    }
+  
+    .booking-form input,
+    .booking-form select,
+    .booking-form button {
+      font-size: 14px;
+      padding: 10px 5px ;
+    }
+  }
+  
