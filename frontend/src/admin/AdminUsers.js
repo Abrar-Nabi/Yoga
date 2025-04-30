@@ -42,17 +42,21 @@ const AdminUsers = () => {
               <th>S.no</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Role</th> {/* Add this line */}
             </tr>
           </thead>
+
           <tbody>
             {users.map((user, index) => (
               <tr key={user._id}>
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>{user.role}</td> {/* Add this line */}
               </tr>
             ))}
           </tbody>
+
         </table>
       )}
     </div>
