@@ -1,5 +1,5 @@
 const Booking = require("../models/Bookings");
-
+const Teacher = require("../models/Teachers");
 // Get all bookings
 exports.getBookings = async (req, res) => {
   try {
@@ -9,32 +9,49 @@ exports.getBookings = async (req, res) => {
     res.status(500).json({ message: "Error fetching bookings" });
   }
 };
-
 // Add a new booking
 exports.addBooking = async (req, res) => {
   try {
-    const { name, phone, email, teacherName, styleName, date } = req.body;
+    const { name, phone, email, styleName, date } = req.body;
 
-    // Ensure email is included in the booking request
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+    if (!email || !name || !phone || !styleName || !date) {
+      return res.status(400).json({ message: "All fields are required" });
     }
+
+    // Find teachers who teach the selected style
+    const cleanedStyle = styleName.trim();
+    const teachers = await Teacher.find({ expertise: { $in: [cleanedStyle] } });
+    
+    
+    console.log("Received styleName:", styleName);
+
+    if (teachers.length === 0) {
+      return res.status(404).json({
+        message: `No teachers found for the style "${styleName}".`,
+      });
+    }
+
+    // Automatically pick the first teacher (or you can allow the user to select)
+    const teacher = teachers[0]; 
 
     const booking = new Booking({
       name,
       phone,
       email,
-      teacherName,
+      teacherName: teacher.name, // Assign the first teacher from the list
       styleName,
       date,
     });
 
     await booking.save();
-    res.status(201).json(booking);
+    res.status(201).json({ message: "Booking successful", booking });
   } catch (error) {
-    res.status(500).json({ message: "Error adding booking" });
+    console.error("Error adding booking:", error);
+    res.status(500).json({ message: "Error adding booking", error: error.message });
   }
 };
+
+
 
 // Update (Edit) a booking
 exports.updateBooking = async (req, res) => {
