@@ -11,7 +11,7 @@ const AdminTeachers = () => {
   const [name, setName] = useState("");
   const [expertise, setExpertise] = useState("");
   const [picture, setPicture] = useState(null);
-       
+
   useEffect(() => {
     fetchTeachers();
   }, []);
@@ -34,7 +34,7 @@ const AdminTeachers = () => {
 
   const handleAddOrUpdateTeacher = async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
     formData.append("name", name);
     formData.append("expertise", expertise);
@@ -87,14 +87,14 @@ const AdminTeachers = () => {
   return (
     <div className="admin-teachers">
       <h2>Manage Teachers</h2>
-      <button className="add-btn" onClick={() => { 
-        setShowForm(true); 
-        setEditingTeacher(null); 
-        setName(""); 
-        setExpertise(""); 
+      <button className="add-btn" onClick={() => {
+        setShowForm(true);
+        setEditingTeacher(null);
+        setName("");
+        setExpertise("");
         setPicture(null);
       }}>
-          Add   Teacher
+        Add   Teacher
       </button>
 
       {loading && <p>Loading teachers...</p>}
@@ -121,7 +121,20 @@ const AdminTeachers = () => {
                   />
                 </td>
                 <td>{teacher.name}</td>
-                <td>{teacher.expertise}</td>
+                <td>
+                  {teacher.expertise && teacher.expertise.length > 0 ? (
+                    <div className="expertise-list">
+                      {teacher.expertise.map((item, index) => (
+                        <span key={index} className="expertise-item">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>No expertise listed</p>
+                  )}
+                </td>
+
                 <td>
                   <button onClick={() => handleEditTeacher(teacher)} className="btn btn-edit">Edit</button>
                   <button onClick={() => handleDeleteTeacher(teacher._id)} className="btn btn-delete">Delete</button>

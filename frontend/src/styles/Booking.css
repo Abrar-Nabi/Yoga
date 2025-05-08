@@ -73,6 +73,11 @@
     border-radius: 6px;
     margin-bottom: 10px;
   }
+  .teacher-name {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
   
   @media (max-width: 600px) {
     .booking-container {

@@ -26,33 +26,40 @@ const AllTeachers = () => {
 
   return (
     <>
-    <Navbar/>
-    <div className="all-teachers-container">
-      <h2 className="all-teachers-heading">Meet All Our Teachers</h2>
+      <Navbar />
+      <div className="all-teachers-container">
+        <h2 className="all-teachers-heading">Meet All Our Teachers</h2>
 
-      {loading && <p>Loading teachers...</p>}
-      {error && <p className="error">{error}</p>}
+        {loading && <p>Loading teachers...</p>}
+        {error && <p className="error">{error}</p>}
 
-      {!loading && teachers.length > 0 ? (
-        <div className="all-teachers-grid">
-          {teachers.map((teacher) => (
-            <div className="teacher-card" key={teacher._id}>
-              <img
-                src={`http://localhost:5000/uploads/${teacher.picture}`}
-                alt={teacher.name}
-                className="teacher-image"
-              />
-              <h3 className="teacher-name">{teacher.name}</h3>
-              <p className="teacher-expertise">{teacher.expertise}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        !loading && <p>No teachers found.</p>
-      )}
-    </div>
-    <Footer/>
-     </>
+        {!loading && teachers.length > 0 ? (
+          <div className="all-teachers-grid">
+            {teachers.map((teacher) => (
+              <div className="teacher-card" key={teacher._id}>
+                <img
+                  src={`http://localhost:5000/uploads/${teacher.picture}`}
+                  alt={teacher.name}
+                  className="teacher-image"
+                />
+                <h3 className="teacher-name">{teacher.name}</h3>
+                <div className="teacher-expertise">
+                  {teacher.expertise.map((style, index) => (
+                    <span key={index} className="expertise-style">
+                      {style}
+                    </span>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
+        ) : (
+          !loading && <p>No teachers found.</p>
+        )}
+      </div>
+      <Footer />
+    </>
   );
 };
 

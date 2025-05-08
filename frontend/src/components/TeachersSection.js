@@ -40,7 +40,14 @@ const TeachersSection = () => {
                 className="teacher-image"
               />
               <h3 className="teacher-name">{teacher.name}</h3>
-              <p className="teacher-expertise">{teacher.expertise}</p>
+              <div className="teacher-expertise">
+                {teacher.expertise.map((style, index) => (
+                  <span key={index} className="expertise-style">
+                    {style}
+                  </span>
+                ))}
+              </div>
+
             </div>
           ))}
         </div>
@@ -53,7 +60,7 @@ const TeachersSection = () => {
       </p>
 
       <Link to="/all-teachers">
-      <button className="teachers-button">Meet our {teachers.length}+ teachers</button>
+        <button className="teachers-button">Meet our {teachers.length}+ teachers</button>
       </Link>
     </div>
   );

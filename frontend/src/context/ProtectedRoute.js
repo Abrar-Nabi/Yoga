@@ -20,7 +20,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
   }
 
   if (!user) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/admin/home" replace />;
   }
 
   if (!allowedRoles.includes(user.role)) {

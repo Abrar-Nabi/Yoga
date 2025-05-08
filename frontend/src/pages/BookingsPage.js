@@ -4,22 +4,15 @@ import Navbar from "../components/Navbar";
 import Footer from "./Footer";
 
 const BookingPage = () => {
-  const [teachers, setTeachers] = useState([]);
   const [styles, setStyles] = useState([]);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [selectedTeacher, setSelectedTeacher] = useState("");
   const [selectedStyle, setSelectedStyle] = useState("");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    // Fetch teachers and styles from the backend
-    fetch("http://localhost:5000/api/teachers")
-      .then((res) => res.json())
-      .then((data) => setTeachers(data))
-      .catch((err) => console.error("Error fetching teachers", err));
-
+    // Fetch styles from the backend
     fetch("http://localhost:5000/api/styles")
       .then((res) => res.json())
       .then((data) => setStyles(data))
@@ -35,15 +28,14 @@ const BookingPage = () => {
   const handleBooking = async (e) => {
     e.preventDefault();
 
-    const currentDate = new Date().toISOString().split("T")[0]; // Capture current date
+    const currentDate = new Date().toISOString().split("T")[0];
 
     const bookingData = {
       name,
       phone,
-      email, // Include email in the booking data
-      teacherName: selectedTeacher,
+      email,
       styleName: selectedStyle,
-      date: currentDate, // Auto-filled date
+      date: currentDate,
     };
 
     const response = await fetch("http://localhost:5000/api/bookings", {
@@ -57,9 +49,7 @@ const BookingPage = () => {
       setMessage("Booking successful!");
       setName("");
       setPhone("");
-      setSelectedTeacher("");
       setSelectedStyle("");
-      setEmail(""); // Clear email after successful booking
     } else {
       setMessage(`Error: ${data.message}`);
     }
@@ -96,23 +86,9 @@ const BookingPage = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required={!email} // If email is not auto-filled, make it required
-            disabled={!!email} // Disable email input if it's already filled
+            required={!email}
+            disabled={!!email}
           />
-
-          <label>Teacher:</label>
-          <select
-            value={selectedTeacher}
-            onChange={(e) => setSelectedTeacher(e.target.value)}
-            required
-          >
-            <option value="">Select Teacher</option>
-            {teachers.map((teacher) => (
-              <option key={teacher.name} value={teacher.name}>
-                {teacher.name}
-              </option>
-            ))}
-          </select>
 
           <label>Yoga Style:</label>
           <select

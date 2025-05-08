@@ -29,7 +29,7 @@ const AdminDashboard = () => {
         <Routes>
           {/* Admin Home Dashboard */}
           <Route
-            path="/"
+            path="/home"
             element={
               <div className="admin-dashboard">
                 <div className="admin-dashboard-content">

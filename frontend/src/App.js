@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/all-styles" element={<AllYogaStyles />} />
           {/* Protected Admin Route */}
           <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-            <Route path="/admin*" element={<AdminDashboard />} />
+            <Route path="/admin/*" element={<AdminDashboard />} />
           </Route>
 
         </Routes>

@@ -34,3 +34,22 @@
   font-size: 14px;
   color: gray;
 }
+
+
+
+
+.teacher-expertise {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin: 5px;
+}
+
+.expertise-style {
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #333;
+}

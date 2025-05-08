@@ -54,7 +54,7 @@ const Login = () => {
             // Navigate based on role after success message
             setTimeout(() => {
                 if (data.role === "admin") {
-                    navigate("/admin"); // Redirect admins
+                    navigate("/admin/home"); // Redirect admins
                 } else {
                     navigate("/"); // Redirect regular users
                 }

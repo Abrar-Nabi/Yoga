@@ -4,6 +4,22 @@
     min-height: 100vh;
   }
 
+  .expertise-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 5px;
+  }
+  
+  .expertise-item  {
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #333;
+  }
+
 
 
 
