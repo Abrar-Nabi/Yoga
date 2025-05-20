@@ -21,8 +21,8 @@ exports.addBooking = async (req, res) => {
     // Find teachers who teach the selected style
     const cleanedStyle = styleName.trim();
     const teachers = await Teacher.find({ expertise: { $in: [cleanedStyle] } });
-    
-    
+
+
     console.log("Received styleName:", styleName);
 
     if (teachers.length === 0) {
@@ -32,7 +32,7 @@ exports.addBooking = async (req, res) => {
     }
 
     // Automatically pick the first teacher (or you can allow the user to select)
-    const teacher = teachers[0]; 
+    const teacher = teachers[0];
 
     const booking = new Booking({
       name,
@@ -54,33 +54,50 @@ exports.addBooking = async (req, res) => {
 
 
 // Update (Edit) a booking
+const mongoose = require("mongoose");
+
 exports.updateBooking = async (req, res) => {
   try {
-    const { name, phone, email, teacherName, styleName, date } = req.body;
+    console.log("Received update data:", req.body);
 
-    // Ensure email is included in the update request
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+    const { name, phone, email, teacherName, styleName, date, status } = req.body;
+
+    if (!email || !name || !phone || !teacherName || !styleName || !date || !status) {
+      console.log("Validation failed: missing fields");
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      console.log("Validation failed: invalid booking ID");
+      return res.status(400).json({ message: "Invalid booking ID" });
+    }
+
+    const allowedStatuses = ["pending", "confirmed", "cancelled"];
+    if (!allowedStatuses.includes(status)) {
+      console.log("Validation failed: invalid status:", status);
+      return res.status(400).json({ message: "Invalid status value" });
     }
 
     const updatedBooking = await Booking.findByIdAndUpdate(
       req.params.id,
-      { name, phone, email, teacherName, styleName, date },
-      {
-        new: true, // Returns updated booking
-        runValidators: true, // Ensures validation rules are applied
-      }
+      { name, phone, email, teacherName, styleName, date, status },
+      { new: true, runValidators: true }
     );
 
     if (!updatedBooking) {
+      console.log("Booking not found for ID:", req.params.id);
       return res.status(404).json({ message: "Booking not found" });
     }
 
-    res.json(updatedBooking);
+    res.json({ message: "Booking updated successfully", booking: updatedBooking });
   } catch (error) {
-    res.status(500).json({ message: "Error updating booking" });
+    console.error("Error updating booking:", error);
+    res.status(500).json({ message: "Error updating booking", error: error.message });
   }
 };
+
+
+
 
 // Delete a booking
 exports.deleteBooking = async (req, res) => {
