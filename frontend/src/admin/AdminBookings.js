@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AdminBookings.css";
-import "./AdminCommon.css"; // Common admin styles
+import "./AdminCommon.css";
 
 const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -8,38 +8,44 @@ const AdminBookings = () => {
   const [styles, setStyles] = useState([]);
   const [editingBooking, setEditingBooking] = useState(null);
   const [showForm, setShowForm] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "", // <-- Add this
+    email: "",
     teacherName: "",
     styleName: "",
     date: "",
+    status: "pending",
   });
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookingRes = await fetch("http://localhost:5000/api/bookings");
-        const teacherRes = await fetch("http://localhost:5000/api/teachers");
-        const styleRes = await fetch("http://localhost:5000/api/styles");
+        const [bookingRes, teacherRes, styleRes] = await Promise.all([
+          fetch("http://localhost:5000/api/bookings"),
+          fetch("http://localhost:5000/api/teachers"),
+          fetch("http://localhost:5000/api/styles"),
+        ]);
 
         if (!bookingRes.ok || !teacherRes.ok || !styleRes.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error("Failed to fetch data from one or more endpoints.");
         }
 
-        const bookingData = await bookingRes.json();
-        const teacherData = await teacherRes.json();
-        const styleData = await styleRes.json();
+        const [bookingData, teacherData, styleData] = await Promise.all([
+          bookingRes.json(),
+          teacherRes.json(),
+          styleRes.json(),
+        ]);
 
         setBookings(bookingData);
         setTeachers(teacherData);
         setStyles(styleData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       }
     };
+
     fetchData();
   }, []);
 
@@ -48,10 +54,11 @@ const AdminBookings = () => {
     setFormData({
       name: booking.name || "",
       phone: booking.phone || "",
-      email: booking.email || "",  // <-- Add this line
+      email: booking.email || "",
       teacherName: booking.teacherName || "",
       styleName: booking.styleName || "",
       date: booking.date?.split("T")[0] || "",
+      status: booking.status || "Pending",
     });
     setShowForm(true);
   };
@@ -59,46 +66,47 @@ const AdminBookings = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       try {
-        const response = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+        const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
           method: "DELETE",
         });
-        if (!response.ok) throw new Error("Failed to delete booking");
+        if (!res.ok) throw new Error("Delete failed");
+
         setBookings((prev) => prev.filter((b) => b._id !== id));
       } catch (err) {
-        console.error("Error deleting booking:", err);
+        console.error("Error deleting booking:", err.message);
       }
     }
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/bookings/${editingBooking}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),  // `formData` now includes `email`
-        }
-      );
+      const res = await fetch(`http://localhost:5000/api/bookings/${editingBooking}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, status: formData.status.toLowerCase() }),
+      });
 
-      if (!response.ok) throw new Error("Failed to update booking");
-      const updatedBooking = await response.json();
+      if (!res.ok) throw new Error("Failed to update booking");
+      const data = await res.json();
 
+      // Update booking list with new booking
       setBookings((prev) =>
-        prev.map((b) => (b._id === editingBooking ? updatedBooking : b))
+        prev.map((b) => (b._id === editingBooking ? data.booking : b))
       );
 
       setEditingBooking(null);
       setShowForm(false);
     } catch (err) {
-      console.error("Error updating booking:", err);
+      console.error("Error updating booking:", err.message);
     }
   };
 
   return (
     <div className="admin-bookings-container">
       <h2>Manage Bookings</h2>
+
       {bookings.length === 0 ? (
         <p>No bookings available.</p>
       ) : (
@@ -111,6 +119,7 @@ const AdminBookings = () => {
               <th>Teacher</th>
               <th>Style</th>
               <th>Date</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -123,10 +132,14 @@ const AdminBookings = () => {
                 <td>{booking.teacherName || "Unknown"}</td>
                 <td>{booking.styleName || "Unknown"}</td>
                 <td>{booking.date?.split("T")[0]}</td>
+                <td>{booking.status}</td>
                 <td>
-                  <button onClick={() => handleEdit(booking)} className="btn btn-edit">Edit</button>
-                  <button onClick={() => handleDelete(booking._id)} className="btn btn-delete">Delete</button>
-
+                  <button className="btn btn-edit" onClick={() => handleEdit(booking)}>
+                    Edit
+                  </button>
+                  <button className="btn btn-delete" onClick={() => handleDelete(booking._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -137,7 +150,7 @@ const AdminBookings = () => {
       {showForm && (
         <div className="popup-form">
           <div className="form-container">
-            <h3>{editingBooking ? "Edit" : "Add"} Booking</h3>
+            <h3>Edit Booking</h3>
             <form onSubmit={handleSave}>
               <label>Name:</label>
               <input
@@ -154,6 +167,7 @@ const AdminBookings = () => {
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 required
               />
+
               <label>Email:</label>
               <input
                 type="email"
@@ -198,17 +212,39 @@ const AdminBookings = () => {
                 required
               />
 
-              <button className="btn" type="submit">
-                {editingBooking ? "Update" : "Add"} Booking
-              </button>
-              <button className="btn" type="button" onClick={() => setShowForm(false)}>
-                Cancel
-              </button>
+              <label>Status:</label>
+        
+
+              <select
+                value={formData.status}
+                onChange={(e) =>
+                  setFormData({ ...formData, status: e.target.value })
+                }
+                required
+              >
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+
+
+              <div style={{ marginTop: "15px" }}>
+                <button className="btn" type="submit">
+                  Update Booking
+                </button>
+                <button
+                  className="btn"
+                  type="button"
+                  style={{ marginLeft: "10px" }}
+                  onClick={() => setShowForm(false)}
+                >
+                  Close
+                </button>
+              </div>
             </form>
           </div>
         </div>
       )}
-
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Auth.css"; // Import CSS
+import Navbar from "../components/Navbar";
+import Footer from "../pages/Footer"
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -67,6 +69,9 @@ const Login = () => {
     };
     
     return (
+        <>
+        <Navbar/>
+        
         <div className="auth-container">
             <div className="auth-box">
                 {loading ? (
@@ -105,6 +110,8 @@ const Login = () => {
                 )}
             </div>
         </div>
+        <Footer/>
+        </>
     );
 };
 

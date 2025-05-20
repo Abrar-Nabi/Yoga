@@ -9,13 +9,11 @@ const MyBookings = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve the email from localStorage (not from the JWT token this time)
     const storedEmail = localStorage.getItem("email");
     if (!storedEmail) {
       navigate("/login");
       return;
     }
-
     setUserEmail(storedEmail);
   }, [navigate]);
 
@@ -24,18 +22,12 @@ const MyBookings = () => {
       fetch("http://localhost:5000/api/bookings")
         .then((res) => res.json())
         .then((data) => {
-          console.log("Fetched bookings:", data);
-
-          const userBookings = data.filter((booking) => {
-            console.log("Checking booking email:", booking.email, "against userEmail:", userEmail);
-            return booking.email === userEmail; // Compare booking email with the email in localStorage
-          });
-
+          const userBookings = data.filter((booking) => booking.email === userEmail);
           setBookings(userBookings);
         })
         .catch((err) => console.error("Error fetching bookings", err));
     }
-  }, [userEmail]); // Fetch bookings once userEmail is set
+  }, [userEmail]);
 
   return (
     <>
@@ -51,6 +43,7 @@ const MyBookings = () => {
                 <p><strong>Teacher:</strong> {booking.teacherName}</p>
                 <p><strong>Style:</strong> {booking.styleName}</p>
                 <p><strong>Date:</strong> {new Date(booking.date).toLocaleDateString()}</p>
+                <p><strong>Status:</strong> <span className={`status ${booking.status?.toLowerCase()}`}>{booking.status || 'Pending'}</span></p>
               </li>
             ))}
           </ul>

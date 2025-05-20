@@ -1,9 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import "../styles/Footer.css";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  const handleBookingsClick = () => {
+    const token = localStorage.getItem("token");
+    const expiration = localStorage.getItem("tokenExpiration");
+
+    if (token && expiration && Date.now() < parseInt(expiration, 10)) {
+      navigate("/bookings");
+    } else {
+      alert("Please login first to view bookings.");
+      navigate("/login");
+    }
+  };
+
   return (
     <footer className="footer">
       {/* Logo on Top-Left */}
@@ -15,7 +29,9 @@ const Footer = () => {
       <div className="footer-links">
         <Link to="/styles">Styles</Link>
         <Link to="/teachers">Teachers</Link>
-        <Link to="/bookings">Bookings</Link>
+        <button className="footer-link-button" onClick={handleBookingsClick}>
+          Bookings
+        </button>
         <Link to="/contact">Contact</Link>
       </div>
 

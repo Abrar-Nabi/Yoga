@@ -79,7 +79,23 @@ const Navbar = () => {
         <button className="close-btn" onClick={() => setMenuOpen(false)}>✖</button>
         <li><Link to="/all-styles" onClick={() => setMenuOpen(false)}>Styles</Link></li>
         <li><Link to="/all-teachers" onClick={() => setMenuOpen(false)}>Teachers</Link></li>
-        <li><Link to="/bookings" onClick={() => setMenuOpen(false)}>Bookings</Link></li>
+        <li>
+          <button
+            className="nav-button"
+            onClick={() => {
+              setMenuOpen(false);
+              if (isLoggedIn) {
+                navigate("/bookings");
+              } else {
+                alert("Please login for booking.");
+                navigate("/login");
+              }
+            }}
+          >
+            Bookings
+          </button>
+        </li>
+
         <li>
           {isLoggedIn ? (
             <Link to="/MyBookings" className="my-bookings-link" onClick={() => setMenuOpen(false)}>

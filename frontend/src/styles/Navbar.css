@@ -14,11 +14,13 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
 }
+
 /* Logo - Simple Text */
 .logo-text {
     font-size: 28px;
     font-weight: bold;
-    font-family: "Playfair Display", serif; /* Change to any fancy font */
+    font-family: "Playfair Display", serif;
+    /* Change to any fancy font */
     text-decoration: none;
     color: black;
     padding: 0px 20px;
@@ -36,7 +38,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-        
+
     padding: 0px 20px;
 }
 
@@ -55,6 +57,24 @@
     transition: transform 0.3s ease-in-out;
 }
 
+.nav-button {
+    background: none;
+    border: none;
+    color: #666;
+    font: inherit;
+    cursor: pointer;
+       list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    transition: transform 0.3s ease-in-out;
+      font-size: 18px;
+}
+
+.nav-button:hover {
+       color: rgb(0, 0, 0);
+}
+
 .nav-links li {
     margin: 0 15px;
 }
@@ -64,17 +84,18 @@
     text-decoration: none;
     font-size: 18px;
 }
-.nav-links li a:hover{
+
+.nav-links li a:hover {
     color: rgb(0, 0, 0);
-   
-    
+
+
 }
 
 
 
 .login-btn {
     padding: 8px 16px;
-  
+
     color: #666;
     border: none;
     border-radius: 5px;
@@ -99,6 +120,7 @@
     transform: translateY(-50%);
     z-index: 1100;
 }
+
 .close-btn {
     display: none;
     background: none;
@@ -109,6 +131,7 @@
     top: 15px;
     right: 20px;
 }
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .menu-toggle {
@@ -134,7 +157,7 @@
     }
 
     .welcome-text {
-     
+
         display: flex;
     }
 
@@ -146,7 +169,7 @@
         margin: 20px 0;
         text-align: center;
     }
-    
+
     .nav-links li a {
         font-size: 18px;
     }

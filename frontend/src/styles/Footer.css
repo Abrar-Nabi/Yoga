@@ -35,7 +35,19 @@
   .footer-links a:hover {
     color: #000;
   }
-  
+  .footer-link-button {
+  background: none;
+  border: none;
+
+  font: inherit;
+  cursor: pointer;
+  color: #666;
+  margin: 0 10px;
+}
+.footer-link-button:hover {
+    color: #000; 
+}
+
   .footer-social {
     display: flex;
     justify-content: center;

@@ -50,7 +50,24 @@
   .cancel-button:hover {
     background-color: #c53030;
   }
-  
+  .status {
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.status.pending {
+  color: #f5b829;
+}
+
+.status.confirmed {
+  color: green;
+}
+
+.status.cancelled {
+  color: red;
+}
+
   /* Responsive */
   @media (max-width: 768px) {
     .my-bookings-container {
